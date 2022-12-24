@@ -1,23 +1,23 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
-import { MongoClient } from "mongodb";
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
 // formData01
 //5jFDZGwpWG6ync0K
 // Replace the uri string with your MongoDB deployment's connection string.
-const uri = "<connection string uri>";
-const client = new MongoClient(uri);
+const uri = "mongodb+srv://formData01:5jFDZGwpWG6ync0K@cluster0.qogqlqn.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
-        const formData = client.db("formData").collection("services");
+        const formData = client.db("formData").collection("sectors");
 
-        app.get('/services', async (req, res) => {
+        app.get('/sectors', async (req, res) => {
             const query = {};
-            const services = await formData.find(query).toArray();
-            res.send(services);
+            const sectors = await formData.find(query).toArray();
+            res.send(sectors);
         })
 
 

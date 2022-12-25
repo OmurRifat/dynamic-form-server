@@ -16,13 +16,20 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const formData = client.db("formData").collection("sectors");
-
+        const formInfo = client.db("formData").collection("formInfo");
+        //api for loading data from the database
         app.get('/sectors', async (req, res) => {
             const query = {};
             const sectors = await formData.find(query).toArray();
             res.send(sectors);
         })
 
+        //api for storing data to db
+        app.post('/store-info', async (req, res) => {
+            const data = req.body;
+            const sentData = await formInfo.insertOne(data);
+            res.send(sentData)
+        })
 
     }
     finally {

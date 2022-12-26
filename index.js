@@ -3,14 +3,15 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config()
 
 app.use(cors());
 app.use(express.json());
 
-// formData01
-//5jFDZGwpWG6ync0K
+
 // Replace the uri string with your MongoDB deployment's connection string.
-const uri = "mongodb+srv://formData01:5jFDZGwpWG6ync0K@cluster0.qogqlqn.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qogqlqn.mongodb.net/?retryWrites=true&w=majority`;
+// console.log(uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
